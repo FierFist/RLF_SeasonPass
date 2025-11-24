@@ -1,32 +1,37 @@
+# 📄 config_RandomItemsList 配置说明
 
-# 📄 Конфиг config_RandomItemsList
-
-Конфиг предназначен для указания случайных наград, которые будут выдаваться при достижении уровней. Здесь хранится общая база случайных наград, к которой вы можете обратиться указав нужный ID в настройке уровней.
+该配置用于定义 **随机奖励池**。  
+当玩家到达某个等级，并在 seasonLevelsList 中填写了负数奖励（例如 `-1`、`-2` 等），系统会从此配置中读取相应随机奖励池并生成随机奖励。
 
 ---
-    
-## 🧩 Описание параметров
 
-| Поле              | Тип        |  Описание |
-|-------------------|------------|----------|
-| `randomItemsUniqueID`  | `integer`  | Уникальный идентификатор случайной награды, который не может повторяться! В конфиге уровней, вы указываете ID со занком минус в начале, -2, -255 и так далее. Здесь знак минус не нужен. Указывайте 2, 255 и так далее. |
-| `randomItemsName`      | `string`   | Имя награды при наведении |
-| `previewImage`      | `string`   |Картинка награды в формате 256x256. Вы можете указать ящики от 1 до 10 пример ящиков ниже, либо указать свою. relife_SeasonPass/images/box_images/10.edds|
-| `rarityColor`      | `string hexstring` |Цвет награды в соотвествии с шансом. **0.1-0.2** Это диапазон шанса предмета для которого будет этот цвет. Значения имеют включающий параметр, то есть если указано 0.1-0.2 то от 0.1 включая 0.1 и до 0.2 включая 0.2. **0x78EB4B4B** это цвет в формате HEX с прозрачностью **0x78** это прозрачность, **EB4B4B** это цвет в формате HEX.|
-| `itemsIDList`  | `integer, float`  | ID предметов из [списка](https://github.com/virusomanvs/relife_SeasonPass/blob/main/config_ItemsList.md) наград, которые могут выпасть, а также их шанс от 0 до 1, среди общего списка. |
+## 🧩 参数说明
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `randomItemsUniqueID` | `integer` | 随机奖励池的唯一 ID（不能重复）<br>在等级配置中使用负数引用：<br>例如等级里填 `-2` → 对应这里的 `2` |
+| `randomItemsName` | `string` | 奖励名称（鼠标悬停显示） |
+| `previewImage` | `string` | 奖励的预览图（建议使用 256×256）<br>可使用自带 1–10 号宝箱，例如：<br>`relife_SeasonPass/images/box_images/10.edds` |
+| `rarityColor` | `string hexstring` | 根据物品“掉落概率区间”显示不同颜色。<br>格式：`"0.1-0.2": "0x78EB4B4B"`<br>**0.1–0.2** = 几率区间（含边界）<br>**0x78EB4B4B** = HEX 颜色（0x78 为透明度） |
+| `itemsIDList` | `integer:float` | 物品 ID → 掉落权重（0–1）。<br>权重越高，概率越大。物品 ID 来自：[config_ItemsList](https://github.com/virusomanvs/relife_SeasonPass/blob/main/config_ItemsList.md) |
+
+---
 
 ![image](https://github.com/user-attachments/assets/89e0c7ca-eebc-436f-a658-f4a5f01742cf)
 
 ---
-## Видео с подробным описанием параметров (на русском) https://youtu.be/zqg-qNEU1EY
+
+## 🎥 视频讲解（俄语）
+https://youtu.be/zqg-qNEU1EY
+
 ---
 
-## 🧱 Общая структура объекта
+## 🧱 配置示例
 
 ```json
 {
     "randomItemsUniqueID": 1,
-    "randomItemsName": "Случайная вещь [Деревянный кейс]",
+    "randomItemsName": "随机物品 [木箱]",
     "previewImage": "relife_SeasonPass/images/box_images/2.edds",
     "rarityColor": {
         "0.1-0.2": "0x78EB4B4B",
@@ -44,7 +49,7 @@
 },
 {
     "randomItemsUniqueID": 3,
-    "randomItemsName": "Случайная вещь [Золотой кейс]",
+    "randomItemsName": "随机物品 [金箱]",
     "previewImage": "relife_SeasonPass/images/box_images/10.edds",
     "itemsIDList": {
         "1": 0.1,
@@ -54,4 +59,5 @@
     }
 }
 ```
+
 ---
